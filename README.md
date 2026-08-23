@@ -120,7 +120,14 @@ so write the legend down in the three places Bome will show it back to you:
   rule type. Make it the first rule: `; rr = target CC, pp = scaled value`.
   It sits exactly where the arithmetic is, which is where the question comes up.
 * **the preset's Comments field** — for anything global the preset owns, and
-  for the head letter it has been given.
+  for the head letter it has been given. `.bmtp` stores it on one line, but
+  `\n` is a real line break there, so the field takes a laid-out legend rather
+  than one unreadable paragraph. Bome's own example projects use it exactly
+  this way — one variable per line:
+
+  ```
+  Comments=ka: current start blinker value\nkc: ball color\nkd: end animation note\n…
+  ```
 
 A translator whose chain is longer than a couple of rules and has no legend is
 the one you will misread in six months.
