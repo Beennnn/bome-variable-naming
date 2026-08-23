@@ -83,7 +83,27 @@ So *"I need two controller values in one translator"* → `pp` for the first and
 only when a value genuinely has to outlive the translator that computed it —
 and check first: a translator that captures its own input does *not* need one.
 
-### Rule 2 — a global is owned by exactly one domain
+### Rule 2 — put the legend where the variables are used
+
+`pp` and `rr` carry no meaning on their own, and no convention can give them
+any: the nine names are imposed by the language. What a fixed job table buys
+you is meaning **by position** — the same trade every assembly language makes
+with `sp` and `pc`. It works because the set is tiny, closed and always used
+the same way. It does not survive someone reading one translator in isolation,
+so write the legend down in the three places Bome will show it back to you:
+
+* **the translator name** — append the slot legend to what the translator does:
+  `Tilt -> Mod/Foot  [rr=cc# pp=value]`. This is the line you see in the list.
+* **a comment rule at the top of the chain** — Bome's rule editor has a Comment
+  rule type. Make it the first rule: `; rr = target CC, pp = scaled value`.
+  It sits exactly where the arithmetic is, which is where the question comes up.
+* **the preset's Comments field** — for anything global the preset owns, and
+  for the head letter it has been given.
+
+A translator whose chain is longer than a couple of rules and has no legend is
+the one you will misread in six months.
+
+### Rule 3 — a global is owned by exactly one domain
 
 Give each *device or concern* its own head letter, and never share it:
 
@@ -97,7 +117,7 @@ j…  pad controller      n…  the DAW
 The head letter maps to the **device**, never to `Preset.7`. Presets and
 translators get renumbered when you drag them around; a device does not.
 
-### Rule 3 — for globals, the second character carries the type
+### Rule 4 — for globals, the second character carries the type
 
 (Locals have fixed names, so this applies to globals only — their job is set by
 the table in Rule 1.)
@@ -117,14 +137,14 @@ When you read `Outgoing: CC <lc> = <la>` you can tell at a glance that the
 controller number comes from the breath domain and is a controller number —
 not a velocity that wandered in.
 
-### Rule 4 — never put a shared global in the controller-number slot
+### Rule 5 — never put a shared global in the controller-number slot
 
 A wrong value in the *value* slot gives you a strange setting. A wrong value in
 the *number* slot fires a random controller — including the reserved 120–127
 range that silences your rig. If the number must be computed, compute it into a
 variable **written by that translator only**, and assign it before any exit path.
 
-### Rule 5 — assign before every exit, or don't emit
+### Rule 6 — assign before every exit, or don't emit
 
 Bome offers two ways to leave a rule chain early:
 
@@ -139,7 +159,7 @@ means "nothing to send", it must be `noexecute`. If it means "send the neutral
 value", every variable the outgoing action reads must already be assigned at
 that point in the chain.
 
-### Rule 6 — document the mapping in the preset
+### Rule 7 — document the mapping in the preset
 
 Each preset has a `Comments` field. Put its head letter and the meaning of each
 variable there. It travels with the project and survives renumbering.
