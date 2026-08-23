@@ -168,7 +168,51 @@ means "nothing to send", it must be `noexecute`. If it means "send the neutral
 value", every variable the outgoing action reads must already be assigned at
 that point in the chain.
 
-### Rule 7 — document the mapping in the preset
+### Rule 7 — name presets and translators by what they are, never by where they are
+
+Same reasoning as the head letters: `Preset.7` and `Translator 3` move the
+moment you drag something. Never put an index, an order word (*first*, *then*)
+or a state that the UI already shows (*Disabled …* — there is a checkbox for
+that, and the name goes stale the day you re-enable it) into a name.
+
+**Presets** own a device or a concern, so name them after it and show the head
+letter they own:
+
+```
+<device or concern> — <what it routes>  [<head>]
+
+Keyboard — notes to DAW        [k]
+Breath — head motion to CC     [m]
+Lights — scene feedback        [l]
+```
+
+When several presets are **mutually exclusive modes** of the same thing, lead
+with the mode so they sort together and the odd one out is obvious:
+
+```
+[Violin] Keyboard — notes to DAW   [k]
+[Organ]  Keyboard — notes to DAW   [k]
+```
+
+**Translators** are one incoming → one outgoing, so the name should answer
+"what comes in, what goes out" without opening it, and carry the slot legend
+from Rule 2:
+
+```
+<incoming> -> <outgoing>   [<slot legend>]
+
+Note on -> DAW ch2            [rr=note pp=vel]
+CC13 tilt -> CC1/CC4          [rr=cc# pp=value]
+CC13 tilt -> CC80 fall        [vv=flag]
+```
+
+Write the **concrete MIDI** — `CC13`, `Note on`, `PB` — not a paraphrase of it.
+And when several translators fire on the **same incoming event**, start all of
+their names with that same trigger, as in the two `CC13 tilt` lines above. They
+then group visually, which is the only warning you get that they share state and
+will run in an order you did not choose.
+
+### Rule 8 — document the mapping in the preset
 
 Each preset has a `Comments` field. Put its head letter and the meaning of each
 variable there. It travels with the project and survives renumbering.
