@@ -51,13 +51,37 @@ own version before relying on them.
 
 ## The convention
 
-### Rule 1 — default to a local
+### Rule 0 — you never *choose* whether a name is local or global
 
-If a value is born and dies inside one translator's rule chain, it must be one
-of `pp qq rr ss tt uu vv ww xx`. Nine slots is plenty for one chain, and two
-translators using `pp` can never interfere. **Most variables in a typical project
-should be locals.** Reach for a global only when a value genuinely has to
-outlive the translator.
+This is not a convention, it is the language: **`pp qq rr ss tt uu vv ww xx` are
+local. Every other name is global.** There is no prefix to invent and no
+ambiguity to resolve — reading `pp` tells you it dies with the translator,
+reading `hn` tells you it does not. The convention below only decides *which*
+you should reach for, and how to organise the globals.
+
+### Rule 1 — default to a local, and give each of the nine a fixed job
+
+If a value is born and dies inside one translator's rule chain, use a local.
+Two translators both using `pp` can never interfere, so you only ever need to
+disambiguate *within* a single translator. Nine slots is plenty for that — the
+point is to always use them the same way:
+
+| local | job |
+|---|---|
+| `rr` | first data byte of the message — note number, controller number, pitch-bend value |
+| `pp` | second data byte — velocity, controller value |
+| `qq` | MIDI channel |
+| `ss` `tt` `uu` | scratch: intermediate arithmetic, never emitted |
+| `vv` `ww` | values to emit when they are neither `rr` nor `pp` |
+| `xx` | flag / spare |
+
+So *"I need two controller values in one translator"* → `pp` for the first and
+`vv` for the second; a third goes in `ww`. If one of them is a controller
+**number** rather than a value, it belongs in `rr`.
+
+**Most variables in a typical project should be locals.** Reach for a global
+only when a value genuinely has to outlive the translator that computed it —
+and check first: a translator that captures its own input does *not* need one.
 
 ### Rule 2 — a global is owned by exactly one domain
 
@@ -73,7 +97,10 @@ j…  pad controller      n…  the DAW
 The head letter maps to the **device**, never to `Preset.7`. Presets and
 translators get renumbered when you drag them around; a device does not.
 
-### Rule 3 — the second character carries the type
+### Rule 3 — for globals, the second character carries the type
+
+(Locals have fixed names, so this applies to globals only — their job is set by
+the table in Rule 1.)
 
 | char | type | range |
 |---|---|---|
