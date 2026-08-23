@@ -11,6 +11,20 @@ outgoing action it was supposed to suppress.
 This repository proposes a convention that makes those collisions impossible by
 construction, and an audit script that finds the ones you already have.
 
+## Who wrote this, and who did not
+
+**I am not affiliated with Bome.** This is not official guidance, it has not
+been reviewed or endorsed by them, and "Bome" and "MIDI Translator" are their
+names — used here only to say what this document is about.
+
+I am one user writing down what an evening of debugging taught me about my own
+project. I used an AI assistant to help read the file format, test the
+hypotheses against a MIDI capture and draft this text; the reasoning and the
+wording had a lot of machine help, while the rig, the bug and the decisions are
+mine. That cuts both ways: it made the analysis possible in a few hours, and it
+means you should read the scope details below as a careful reading rather than
+a specification. Where I am wrong, please say so — see *Status*.
+
 ## The problem, concretely
 
 A single shared global is enough to turn an expression sweep into a stream of
@@ -358,8 +372,11 @@ overwrite your file when it next saves.
 
 ## Status
 
-Proposal, not gospel. The scope ranges are assembled from the manual and forum
-threads; corrections and counter-examples are welcome as issues.
+Proposal, not gospel, and not official. The scope ranges are assembled from the
+manual and from forum threads, not from Bome — if you know them to be wrong or
+incomplete, an issue correcting them is worth more to me than a star. The same
+goes for the convention itself: it solved one rig's problem, which is not the
+same as being right for yours.
 
 ## Sources
 
