@@ -105,17 +105,26 @@ the one you will misread in six months.
 
 ### Rule 3 — a global is owned by exactly one domain
 
-Give each *device or concern* its own head letter, and never share it:
+Give each *device or concern* its own head letter, and never share it. You get
+exactly ten heads — `g h i j k l m n y z` — so pick the mnemonic ones first and
+treat the rest as spares you assign and write down:
 
-```
-g…  cross-cutting project state (transpose, current song, active layer)
-h…  keyboard 1          l…  breath / wind controller
-i…  keyboard 2          m…  pedals
-j…  pad controller      n…  the DAW
-```
+| head | mnemonic | typical owner |
+|---|---|---|
+| `g` | **G**lobal | project-wide state: transpose, current song, active layer |
+| `k` | **K**eyboard | the main keyboard |
+| `m` | **M**outh | breath / wind controller |
+| `h` | **H**ost | the DAW |
+| `l` | **L**ights | lighting, LED feedback, scene state |
+| `n` | **N**etwork | BomeBox, RTP-MIDI, remote gear |
+| `i` | **I**nput 2 | second keyboard or pad controller |
+| `j` `y` `z` | — | spares: no natural mnemonic, assign and document |
 
-The head letter maps to the **device**, never to `Preset.7`. Presets and
-translators get renumbered when you drag them around; a device does not.
+Ten heads is not many and four of them have no obvious mnemonic, so the letter
+alone will never be self-explanatory — that is what Rule 7 is for. What the head
+letter must never encode is a **position**: it maps to the device, never to
+`Preset.7`. Presets and translators get renumbered the moment you drag one; a
+keyboard does not.
 
 ### Rule 4 — for globals, the second character carries the type
 
