@@ -83,6 +83,28 @@ So *"I need two controller values in one translator"* → `pp` for the first and
 only when a value genuinely has to outlive the translator that computed it —
 and check first: a translator that captures its own input does *not* need one.
 
+### Can two locals collide? Bome already answers that
+
+Almost never, and the part that remains is the part you control.
+
+| situation | what happens |
+|---|---|
+| two **different translators** both use `pp` | never interfere — each execution gets its own copy |
+| two **simultaneous incoming messages** hit the *same* translator | still fine: "local variables are local per incoming event" — the translator runs twice, each run with its own values |
+| **one** translator execution uses the same name for two different things | this one is on you, and it is the only case the convention has to prevent |
+
+That last row is what the fixed job table above is for. Nine distinct slots per
+chain, always used the same way: if you find yourself needing a tenth live
+value in a single translator, the chain has outgrown what a rule list should
+hold — split it, or promote the part that has to survive into a global.
+
+The flip side of that guarantee is the limit: a local **cannot carry a value
+from one translator to another**, because it dies with the execution. If
+translator B needs something translator A computed, a local is the wrong tool —
+that is the legitimate use of a global, and Rules 3 and 4 then apply. (If you
+use delayed outgoing actions, check the manual's section on local variables in
+delayed actions before relying on their lifetime.)
+
 ### Rule 2 — put the legend where the variables are used
 
 `pp` and `rr` carry no meaning on their own, and no convention can give them
