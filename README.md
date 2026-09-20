@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.svg" alt="bome-variable-naming" width="100%"></p>
+
 # bome-variable-naming
 
 **Find the variable collisions in a Bome MIDI Translator Pro project — and a naming
